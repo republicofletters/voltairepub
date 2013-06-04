@@ -1,4 +1,7 @@
-voltairepub
-===========
+Voltaire's places of publication (1712-1800)
+============================================
 
-Publication data for Voltaire from the BNF
+An experiment on the visualization of the places where Voltaire works were published. Data from the catalogue of the French National Library (BnF).
+
+Data gathering, analysis and visualization by Glauco Mantegari. Scientific supervision by Prof. Dan Edelstein. This work is within the context of the Mapping the Republic of Letters project. The BnF is not responsible for any data quality issues related to this visualization.
+
