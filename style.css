@@ -1,0 +1,120 @@
+body{
+background-color: #fbfbf9;
+}
+
+#wrap { 
+	width: 1150px; 
+	margin: 0 auto; 
+}
+
+#mapWrap { 
+float: left;
+width: 900px;
+}
+
+
+h1 {
+font-family: 'Source Sans Pro', sans-serif;
+font-weight: 400;
+padding-top: 50px;
+text-align: left;
+color: 565245;
+}
+
+h2 {
+font-family: 'Source Sans Pro', sans-serif;
+font-weight: 300;
+margin-top: -20px;
+margin-bottom: 30px;
+text-align: left;
+color: 565245;
+}
+
+h3 {
+font-family: 'Source Sans Pro', sans-serif;
+font-weight: 400;
+margin-bottom: 30px;
+margin-top: 0px;
+text-align: left;
+color: 565245;
+}
+
+#rightPane {
+float: right;
+width:220px;
+padding: 0 15px 0 15px;
+}
+
+/* buttons */ 
+#buttons {
+	text-align: left;
+	margin-top: 18px;
+	width:1150px;
+	float:left;
+}
+
+button {
+	width: 175px;
+	margin-right: 10px;
+}
+
+.options {
+	-moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	background-color:#F2F1EB;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	border:1px solid #ccc;
+	display:inline-block;
+	color:#565245;
+	font-weight:bold;
+	padding:6px 10px;
+	text-decoration:none;
+	font-family: 'Source Sans Pro', sans-serif;
+	font-weight: 400;
+	font-size: .8em;
+}
+
+.options:hover {
+	background-color:#E0E0DC;
+}
+
+.options:active {
+	position:relative;
+	top:1px;
+}
+
+#Statistics {
+
+	font-family: 'Source Sans Pro', sans-serif;
+	font-weight: 300;
+}
+
+#disclaimer {
+	margin-top:30px;
+	font-family: 'Source Sans Pro', sans-serif;
+	font-size: .9em;
+	font-weight: 300;
+	float: left;
+	width: 1150px;
+}
+
+#infoWindow {
+	width: 200px;
+	margin-top: 7px;
+	text-align: center;
+	font-size: 1.5em;
+	color: #666;
+}
+
+.place {
+	font-family: 'Source Sans Pro', sans-serif;
+	font-weight: 400;
+	text-align: center;
+	color: #333;	
+}
+
+.number {
+	font-family: 'Source Sans Pro', sans-serif;
+	font-weight: 300;
+}
