@@ -1,0 +1,47 @@
+{type: "FeatureCollection",
+features: [{
+	"type": "Feature",
+	"properties": {
+	"category": "1",
+   	"place": "Paris",
+   	"popupContent": "1300 publication(s)",
+	},
+	"geometry": {
+   	"type": "Point",
+   	"coordinates": [-0.11, 51]
+	}
+},
+{"type": "Feature",
+	"properties": {
+	"category": "1",
+   	"place": "Paris",
+   	"popupContent": "1300 publication(s)",
+	},
+	"geometry": {
+   	"type": "Point",
+   	"coordinates": [-0.11, 50]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+	"category": "1",
+   	"place": "Paris",
+   	"popupContent": "1300 publication(s)",
+	},
+	"geometry": {
+   	"type": "Point",
+   	"coordinates": [11, 51]
+	}
+},{"type": "Feature",
+	"properties": {
+	"category": "1",
+   	"place": "Paris",
+   	"popupContent": "1300 publication(s)",
+	},
+	"geometry": {
+   	"type": "Point",
+   	"coordinates": [11, 40]
+	}
+}]
+}
