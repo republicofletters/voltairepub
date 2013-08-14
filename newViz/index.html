@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>A geography of Voltaire</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="style.css" />
+	<link rel="stylesheet" href="leaflet/dist/leaflet.css" />
+	<!--[if lte IE 8]><link rel="stylesheet" href="leaflet/dist/leaflet.ie.css" /><![endif]-->
+	<link href="https://www.stanford.edu/su-identity/css/su-identity.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700" rel="stylesheet" type="text/css">
+	<link href='https://fonts.googleapis.com/css?family=Crimson+Text:400,600,700' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" type="text/css" href="tooltipster-master/css/tooltipster.css" />
+	<link rel="stylesheet" type="text/css" href="tooltipster-master/css/themes/tooltipster-myStyle.css" />	
+	<script src="http://code.jquery.com/jquery.js"></script>
+	<script src="leaflet/dist/leaflet.js"></script>
+	<script type="text/javascript" src="mapNew.js"></script>	
+	<script type="text/javascript" src="leafletAjax/leaflet.ajax.js"></script>
+	<script type="text/javascript" src="leafletProviders/leaflet-providers.js"></script>
+	<script type="text/javascript" src="tooltipster-master/js/jquery.tooltipster.min.js"></script>
+	
+	<script type="text/javascript" charset="utf-8">
+		$(function () {
+			var tabContainers = $('div#tabs > div');
+			tabContainers.hide().filter(':first').show();
+			$('div#tabs ul.nav a').click(function () {
+				var overlayStatus = document.getElementById('overlay');
+				if (overlayStatus.style.visibility == 'visible')
+  				{
+				javascript:hideOverlay();
+  				};
+				tabContainers.hide();
+				tabContainers.filter(this.hash).fadeIn('medium');
+				$('div#tabs ul.nav a').removeClass('current');
+				$(this).addClass('current');
+				return false;
+			}).filter(':first').click();
+		});
+	</script>
+	
+</head>
+<body>
+	<div id="su-wrap"> <!-- #su-wrap start -->
+  	<div id="su-content"> <!-- #su-content start -->
+  	<!-- Brandbar snippet start -->
+	<div id="brandbar">
+		<div class="container">
+    		<a href="http://www.stanford.edu">
+    			<img src="https://www.stanford.edu/su-identity/images/brandbar-stanford-logo@2x.png" alt="Stanford University" width="152" height="23">
+    		</a>
+  		</div> <!-- .container end -->
+	</div> <!-- #brandbar end -->
+	<!-- Brandbar snippet end -->
+	<div id="wrap">
+	<div id="heading">
+		<h1>A Geography of Voltaire</h1>
+	  	<h2>Experiments in visualizing correspondence and publication data</h2>
+	</div>
+  	<div id="tabs">
+  		<ul class="nav">
+    		<li><a href="#map" class="current">Map</a></li>
+	        <li><a href="#data">Data</a></li>
+	        <li><a href="#insights">Insights</a></li>
+	        <li><a href="#credits">Credits</a></li>	        
+   		</ul>   		
+		<div id="map">		
+		<div id="hint"><span class="tooltip" id="example" title="Select the layers you want to visualize"></span></div>
+		<script type="text/javascript">
+			function showLegend() {
+			var l = document.getElementById('legend');
+ 			if (l.style.visibility == 'hidden') {
+        		l.style.visibility = 'visible';
+    		}
+    		else {
+        		l.style.visibility = 'hidden';
+    		};
+			}
+		</script>
+		<div id="legend-control"><a href="javascript:showLegend();"/><img src="imgs/legend.png"/></a></div>
+		<div id="legend">
+		<h1>Editions</h1>
+		<div class="legend-item">
+			<div class="legend-code" style="background: #ff0000"></div>
+			<div class="legend-label">Actual places</div>
+		</div>	
+		<div class="legend-item">
+			<div class="legend-code" style="background: #ffff00"></div>
+			<div class="legend-label">Actual places, not stated</div>
+		</div>			
+		<div class="legend-item">
+			<div class="legend-code" style="background: #9966ff"></div>
+			<div class="legend-label">Stated places</div>
+		</div>			
+		<div class="legend-item">
+			<div class="legend-code" style="background: #ff00ff"></div>
+			<div class="legend-label">True stated</div>
+		</div>			
+		<div class="legend-item">
+			<div class="legend-code" style="background: #ccccff"></div>
+			<div class="legend-label">False stated</div>
+		</div>			
+		<h1>Letters</h1>
+		<div class="legend-item">
+			<div class="legend-code" style="background: #006600"></div>
+			<div class="legend-label">Source of letters from Voltaire</div>
+		</div>
+		<div class="legend-item">
+			<div class="legend-code" style="background: #66ff00"></div>
+			<div class="legend-label">Destination of letters from Voltaire</div>
+		</div>
+		<div class="legend-item">
+			<div class="legend-code" style="background: #0000ff"></div>
+			<div class="legend-label">Source of letters to Voltaire</div>
+		</div>
+		<div class="legend-item">
+			<div class="legend-code" style="background: #00ffff"></div>
+			<div class="legend-label">Destination of letters to Voltaire</div>
+		</div>		
+		</div>
+		<script type="text/javascript">
+			function hideOverlay() {
+			var o = document.getElementById('overlay');
+			o.style.visibility = 'hidden';
+			}
+		</script>
+		<div id="overlay">	
+			<div id="overlayContent">
+			<button type="button" id="closeOverlay" onclick="javascript:hideOverlay();"></button>	
+			<div id="overlayText">
+			<p>This is an attempt to visualize a geography of Voltaire using correspondence data
+			from the <a href="http://www.e-enlightenment.com" target="blank">Electronic Enlightenment project</a> at Oxford University and
+			publication data from the catalogue of the <a href="http://www.bnf.fr" target="blank">Bibliothèque nationale de France</a>.</p>
+			<p><span id="hint" class="tooltip" title="With these two controls, you select the layers to display <br/> and you show or hide the legend">
+			On the map, <i>select thematic layers</i></span> and visually compare the distribution of places connected to 1973 editions
+			and 11.351 letters (with either a source and/or a destination place).</p>
+			<p>In the other sections of the site you will find a description of the methodologies used for retrieving, analyzing and transforming data, and
+			preliminary historical insights about the results of this experiment.</p> 
+			<!--[<a href="javascript:hideOverlay();" style="text-align: center">browse the map</a>] -->
+			</div>
+			<div id="overlayImage"><img src="imgs/voltBnOutline.png"/></div>
+			</div>
+		</div>
+		</div>
+		<div id="data">
+		<img src="imgs/jamet-voltaire-1765.jpg" class="imgRight" />		
+		<h1>Retrieving the data</h1>
+		<p>Under the <a href="http://data.bnf.fr" target="blank">data.bnf.fr</a> initiative the Bibliothéque nationale de France (BnF) is publishing its catalog and the links to documents
+		in the <a href="http://gallica.bnf.fr" target="blank">Gallica portal</a> as linked data.
+		The dataset currently includes information about the main French authors, whose bibliographic descriptions have been modeled <a href="http://data.bnf.fr/semanticweb" target="blank">adapting FRBR</a>.</p>
+		<p>he BnF linked data portal lists <a href ="http://data.bnf.fr/11928669/voltaire/" target="blank">5425 documents related to Voltaire (as of June 2013)</a>.
+		We focused on the subset of 4592 documents authored by Voltaire and, in particular, to “historical” publications, i.e. the books that were published until 1800, a few years after the death of the author (1778).</p>
+		<p>To retrieve the list of URIs of editions, we used SPARQL queries and Python scripts on the RDF dumps provided by BnF.
+		Using this list, the bibliographic entries from the BnF main catalogue were retrieved and parsed to extract the data.</p>
+		<h1>Inspecting, analyzing, and visualizing the data</h1>
+		<p>We focused our attention on 1973 editions dated before 1800. Three principal groups of publications have been identified.</p>
+		<p>Works with:
+		<ol>
+		<li>A single place of publication, publisher and date: e.g. “Genève : Cramer, 1762” (1792 records)</li>
+		<li>Two places of publication: e.g. “La Haye ; Berlin : J. Neaulme, 1754” (68 records)</li>
+		<li>Place of publication and place of distribution: e.g. “Imprimée à Rouën : chez Jore ; et se vend à Paris : chez J.-B. Bauche, 1736” (46 records)</li>
+		</ol>
+		</p>
+		<p>Based on the analysis of the records in group 1, we defined 6 additional possible attributes:</p>
+		<ol>
+		<li>Stated Place of publication: e.g. “Geneva” in “Genève : Cramer, 1762”</li>
+		<li>Known place of publication: e.g. “Geneva” in “À Amsterdam (Genève : Cramer), 1768”</li>
+		<li>Stated publisher: e.g. “Cramer” in “Genève : Cramer, 1762”</li>
+		<li>Known publisher: e.g. “Prault” in “(Paris : Prault,), 1739”</li>
+		<li>Stated year of publication: e.g. “1762” in “Genève : Cramer, 1762”</li>
+		<li>Known year of publication: e.g. “1763” in “(Genève : Cramer,), 1755 (sic pour 1763)”</li>
+		</ol>
+		</p>
+		<p>Place names have been matched against <a href="http://geonames.org/" target="blank">GeoNames</a>, to link the dataset to a LD geographical gazetteer, and to retrieve coordinates.</p>
+		<p>The visualization is experimental. The BnF is not responsible for any data quality issues related to it.</p>
+		</div>
+		<div id="insights">
+		<img src="imgs/mapExample.png" class="imgRight" />		
+		<p>The results of this experiment are extremely interesting to the historian of the Enlightenment.</p>
+		<p>First, it reminds us of the predominant place that Parisian publishers occupied in 18th century France: 469 of the works in our database were published in Paris.
+		Historians in recent years have mostly focused on “the publishing houses that surrounded France in a fertile crescent that extended from Amsterdam and Brussels
+		through the Rhineland and Switzerland into Avignon,” and which “furnished France and all of Europe with cheap, pirated editions of books published in France and with books that could not pass the French censorship”
+		(Robert Darnton, reviewing The French Book Trade in Enlightenment Europe, 1769-1794).
+		While Amsterdam and Geneva are well represented on this map (with each city responsible for publishing 200 and 377 editions, respectively), few other cites in this “crescent” played an important role in diffusing Voltaire’s work.</p>		
+		Exploring the data further, we also discovered that Voltaire only began publishing in Geneva after moving there in 1753: so physical proximity seems to have played an important role in his decision to publish there.</p>
+		<p>Equally interesting is the “imaginary” geography of the Enlightenment that emerges from this map. If one looks at the stated places of publication
+		(i.e., the place of publication printed on the title page), Paris emerges as a comparatively more important center: 342 editions claim to have been printed in Paris, compared to only 190 for Geneva,
+		193 for Amsterdam, and 165 for London (to list the top four locations). In the case of Geneva, this means that only half the books published there actually bore this imprint on their title page.
+		Readers who were not well versed in the subterfuges of 18th century publishing were therefore more likely to assume that Paris was even more important, in relative terms, than it actually was.</p>
+		<p>Looking forward, it would be interesting to build out this database to include publications by all of the Enlightenment authors, both to compare their publication geographies, and to examine what the overall shape
+		of Enlightenment publishing resembled. It would also be helpful to add a temporal dimension to these visualizations, so users could detect changes in publishing strategies over time.
+		Finally, there is a great deal of additional metadata that could also be visualized, including data about publishing houses, languages of publication, and permissions (were the publications officially authorized by a
+		<em>privilège royal</em>, tacitly authorized, or simply illegal?).</p>
+		</div>
+		<div id="credits">
+		<p>Data gathering, analysis and visualization by <a href="mailto:mantegari@stanford.edu">Glauco Mantegari</a>.<br/> Scientific supervision by Prof. <a href="mailto:danedels@stanford.edu">Dan Edelstein</a>.</p>
+<p>This work is within the context of the <a href="http://republicofletters.stanford.edu">Mapping the Republic of Letters</a>project.</p>
+		</div>
+    </div>
+    </div>
+	</div> <!-- #su-content end -->
+	</div> <!-- #su-wrap end -->
+	<!-- Global footer snippet start -->
+	<div id="global-footer">
+  	<div class="container">
+    	<div class="row">
+      	<div id="bottom-logo" class="span2">
+       		<a href="http://www.stanford.edu">
+       			<img src="https://www.stanford.edu/su-identity/images/footer-stanford-logo@2x.png" alt="Stanford University" width="105" height="49"/>
+        	</a>
+      	</div><!-- #bottom-logo end -->
+      	<div id="bottom-text" class="span10">
+        <ul>
+          <li class="home"><a href="http://www.stanford.edu">SU Home</a></li>
+          <li class="maps alt"><a href="http://visit.stanford.edu/plan/maps.html">Maps &amp; Directions</a></li>
+          <li class="search-stanford"><a href="http://www.stanford.edu/search/">Search Stanford</a></li>
+          <li class="terms alt"><a href="http://www.stanford.edu/site/terms.html">Terms of Use</a></li>
+          <li class="copyright"><a href="http://www.stanford.edu/site/copyright.html">Copyright Complaints</a></li>
+        </ul>
+      	</div> <!-- .bottom-text end -->
+      	<div class="clear"></div>
+      <p class="copyright vcard">&copy; <span class="fn org">Stanford University</span>, <span class="adr"> <span class="locality">Stanford</span>, <span class="region">California</span> <span class="postal-code">94305</span> </span></p>
+    </div> <!-- .row end --> 
+  </div> <!-- .container end --> 
+</div> <!-- global-footer end -->
+<!-- Global footer snippet end -->	
+<!-- Add jQuery Tooltip plugin -->
+<!-- <script type="text/javascript" src="tooltip/js/jquery.lingsTooltip.min.js"></script> --!>
+</body>
+</html>
